@@ -1,0 +1,57 @@
+<%- include('../partials/head') %>
+
+<div class="container">
+  <div class="page-header">
+    <h1><%= titulo %></h1>
+    <a href="/produtos" class="btn btn-secondary">← Voltar</a>
+  </div>
+
+  <% if (erros && erros.length > 0) { %>
+    <div class="alert alert-danger">
+      <strong>Corrija os seguintes erros:</strong>
+      <ul>
+        <% erros.forEach(erro => { %>
+          <li><%= erro %></li>
+        <% }) %>
+      </ul>
+    </div>
+  <% } %>
+
+  <div class="card">
+    <form action="/produtos" method="POST">
+      <div class="form-group">
+        <label for="nome">Nome do Produto *</label>
+        <input type="text" id="nome" name="nome" class="form-control" value="<%= dados.nome || '' %>" placeholder="Ex: Camiseta Polo" required />
+      </div>
+
+      <div class="form-group">
+        <label for="descricao">Descrição *</label>
+        <textarea id="descricao" name="descricao" class="form-control" rows="3" placeholder="Descreva o produto..." required><%= dados.descricao || '' %></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="preco">Preço (R$) *</label>
+          <input type="number" id="preco" name="preco" class="form-control" value="<%= dados.preco || '' %>" step="0.01" min="0" placeholder="0.00" required />
+        </div>
+
+        <div class="form-group">
+          <label for="quantidade">Quantidade em Estoque *</label>
+          <input type="number" id="quantidade" name="quantidade" class="form-control" value="<%= dados.quantidade || '' %>" min="0" placeholder="0" required />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="categoria">Categoria *</label>
+        <input type="text" id="categoria" name="categoria" class="form-control" value="<%= dados.categoria || '' %>" placeholder="Ex: Vestuário, Eletrônicos..." required />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Salvar Produto</button>
+        <a href="/produtos" class="btn btn-secondary">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

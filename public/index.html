@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestão de Produtos</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <header>
+    <nav>
+      <a href="/index.html" class="logo">🛒 GestãoProdutos</a>
+      <a href="/pages/produtos.html" class="nav-link">Produtos</a>
+      <a href="/pages/novo.html" class="btn btn-primary btn-sm">+ Novo Produto</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Sistema de Gestão de Produtos</h1>
+        <p>Cadastre, visualize, edite e remova produtos com persistência real no MongoDB.</p>
+        <div class="hero-actions">
+          <a href="/pages/produtos.html" class="btn btn-primary">Ver Produtos</a>
+          <a href="/pages/novo.html"     class="btn btn-secondary">+ Novo Produto</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="container stats-section">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-number" id="totalProdutos">—</span>
+          <span class="stat-label">Produtos cadastrados</span>
+        </div>
+        <div class="stat-card">         
+          <span class="stat-number" id="totalCategorias">—</span>
+          <span class="stat-label">Categorias distintas</span>
+        </div>
+        <div class="stat-card">          
+          <span class="stat-number" id="precoMedio">—</span>
+          <span class="stat-label">Preço médio</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Aplicação MVC — Node.js + Express + MongoDB &copy; <span id="ano"></span></p>
+  </footer>
+
+  <script>
+    document.getElementById('ano').textContent = new Date().getFullYear();
+
+    fetch('/api/produtos')
+      .then(r => r.json())
+      .then(({ dados = [] }) => {
+        document.getElementById('totalProdutos').textContent = dados.length;
+
+        const cats = new Set(dados.map(p => p.categoria));
+        document.getElementById('totalCategorias').textContent = cats.size;
+
+        const medio = dados.length
+          ? (dados.reduce((s, p) => s + p.preco, 0) / dados.length).toFixed(2).replace('.', ',')
+          : '0,00';
+        document.getElementById('precoMedio').textContent = `R$ ${medio}`;
+      })
+      .catch(() => {
+        ['totalProdutos','totalCategorias','precoMedio'].forEach(id => {
+          document.getElementById(id).textContent = '—';
+        });
+      });
+  </script>
+</body>
+</html>

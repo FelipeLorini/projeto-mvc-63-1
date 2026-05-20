@@ -1,0 +1,46 @@
+<%- include('../partials/head') %>
+
+<div class="container">
+  <div class="page-header">
+    <h1><%= titulo %></h1>
+    <a href="/produtos/novo" class="btn btn-primary">+ Adicionar Produto</a>
+  </div>
+
+  <% if (produtos.length === 0) { %>
+    <div class="empty-state">
+      <p>Nenhum produto cadastrado ainda.</p>
+      <a href="/produtos/novo" class="btn btn-primary">Cadastrar primeiro produto</a>
+    </div>
+  <% } else { %>
+    <table class="tabela">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Categoria</th>
+          <th>Preço</th>
+          <th>Estoque</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% produtos.forEach(produto => { %>
+          <tr>
+            <td><strong><%= produto.nome %></strong></td>
+            <td><span class="badge"><%= produto.categoria %></span></td>
+            <td>R$ <%= produto.preco.toFixed(2).replace('.', ',') %></td>
+            <td><%= produto.quantidade %> un.</td>
+            <td class="acoes">
+              <a href="/produtos/<%= produto._id %>" class="btn btn-sm btn-info">Ver</a>
+              <a href="/produtos/<%= produto._id %>/editar" class="btn btn-sm btn-warning">Editar</a>
+              <form action="/produtos/<%= produto._id %>?_method=DELETE" method="POST" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja excluir este produto?')">
+                <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>

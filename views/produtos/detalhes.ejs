@@ -1,0 +1,58 @@
+<%- include('../partials/head') %>
+
+<div class="container">
+  <div class="page-header">
+    <h1><%= produto.nome %></h1>
+    <div>
+      <a href="/produtos/<%= produto._id %>/editar" class="btn btn-warning">Editar</a>
+      <a href="/produtos" class="btn btn-secondary">← Voltar</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="detalhe-grid">
+      <div class="detalhe-item">
+        <span class="detalhe-label">Descrição</span>
+        <span class="detalhe-valor"><%= produto.descricao %></span>
+      </div>
+
+      <div class="detalhe-item">
+        <span class="detalhe-label">Categoria</span>
+        <span class="badge"><%= produto.categoria %></span>
+      </div>
+
+      <div class="detalhe-item">
+        <span class="detalhe-label">Preço</span>
+        <span class="detalhe-valor destaque">R$ <%= produto.preco.toFixed(2).replace('.', ',') %></span>
+      </div>
+
+      <div class="detalhe-item">
+        <span class="detalhe-label">Estoque</span>
+        <span class="detalhe-valor"><%= produto.quantidade %> unidade(s)</span>
+      </div>
+
+      <div class="detalhe-item">
+        <span class="detalhe-label">Cadastrado em</span>
+        <span class="detalhe-valor"><%= new Date(produto.createdAt).toLocaleString('pt-BR') %></span>
+      </div>
+
+      <div class="detalhe-item">
+        <span class="detalhe-label">Última atualização</span>
+        <span class="detalhe-valor"><%= new Date(produto.updatedAt).toLocaleString('pt-BR') %></span>
+      </div>
+
+      <div class="detalhe-item">
+        <span class="detalhe-label">ID no Banco</span>
+        <code><%= produto._id %></code>
+      </div>
+    </div>
+
+    <div class="form-actions" style="margin-top: 2rem;">
+      <form action="/produtos/<%= produto._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este produto?')">
+        <button type="submit" class="btn btn-danger">Excluir Produto</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detalhes do Produto | Gestão de Produtos</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <header>
+    <nav>
+      <a href="/index.html" class="logo">🛒 GestãoProdutos</a>
+      <a href="/pages/produtos.html" class="nav-link">Produtos</a>
+      <a href="/pages/novo.html" class="btn btn-primary btn-sm">+ Novo Produto</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="page-header">
+      <h1 id="tituloProduto">Detalhes do Produto</h1>
+      <div>
+        <a id="btnEditar" href="#" class="btn btn-warning">Editar</a>
+        <a href="/pages/produtos.html" class="btn btn-secondary">← Voltar</a>
+      </div>
+    </div>
+
+    <div id="alerta" class="alert hidden"></div>
+    <div id="loading" class="empty-state"><p>Carregando produto...</p></div>
+
+    <div id="conteudo" class="hidden">
+      <div class="card">
+        <div class="detalhe-grid">
+          <div class="detalhe-item">
+            <span class="detalhe-label">Descrição</span>
+            <span class="detalhe-valor" id="dDescricao"></span>
+          </div>
+          <div class="detalhe-item">
+            <span class="detalhe-label">Categoria</span>
+            <span class="badge" id="dCategoria"></span>
+          </div>
+          <div class="detalhe-item">
+            <span class="detalhe-label">Preço</span>
+            <span class="detalhe-valor destaque" id="dPreco"></span>
+          </div>
+          <div class="detalhe-item">
+            <span class="detalhe-label">Estoque</span>
+            <span class="detalhe-valor" id="dQuantidade"></span>
+          </div>
+          <div class="detalhe-item">
+            <span class="detalhe-label">Cadastrado em</span>
+            <span class="detalhe-valor" id="dCriado"></span>
+          </div>
+          <div class="detalhe-item">
+            <span class="detalhe-label">Última atualização</span>
+            <span class="detalhe-valor" id="dAtualizado"></span>
+          </div>
+          <div class="detalhe-item">
+            <span class="detalhe-label">ID no Banco</span>
+            <code id="dId"></code>
+          </div>
+        </div>
+
+        <div class="form-actions" style="margin-top:2rem;">
+          <button id="btnExcluir" class="btn btn-danger">Excluir Produto</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Aplicação MVC — Node.js + Express + MongoDB &copy; <span class="ano"></span></p>
+  </footer>
+
+  <script src="/js/detalhes.js"></script>
+</body>
+</html>
