@@ -1,6 +1,11 @@
 const Produto = require('../models/Produto');
 
-
+/**
+ * Lista todos os produtos cadastrados no banco.
+ * @param {import('express').Request} req - Objeto da requisição
+ * @param {import('express').Response} res - Objeto da resposta
+ * @returns {Promise<void>} Lista de produtos em JSON
+ */
 const listarProdutos = async (req, res) => {
   try {
     const produtos = await Produto.find().sort({ createdAt: -1 });
@@ -11,7 +16,13 @@ const listarProdutos = async (req, res) => {
   }
 };
 
-
+/**
+ * Busca um produto pelo ID informado na URL.
+ * @param {import('express').Request} req - Contém req.params.id com o ID do produto
+ * @param {import('express').Response} res - Retorna o produto encontrado ou erro 404
+ * @returns {Promise<void>}
+ * @throws {Error} Se o ID for inválido ou ocorrer erro no banco
+ */
 const buscarProduto = async (req, res) => {
   try {
     const produto = await Produto.findById(req.params.id);
@@ -27,13 +38,18 @@ const buscarProduto = async (req, res) => {
   }
 };
 
-
+/**
+ * Cria um novo produto no banco de dados.
+ * @param {import('express').Request} req - Contém no body: nome, descricao, preco, quantidade, categoria
+ * @param {import('express').Response} res - Retorna o produto criado com status 201
+ * @returns {Promise<void>}
+ * @throws {Error} Se os dados forem inválidos ou obrigatórios estiverem faltando
+ */
 const criarProduto = async (req, res) => {
   try {
     const { nome, descricao, preco, quantidade, categoria } = req.body;
     const produto = await Produto.create({ nome, descricao, preco, quantidade, categoria });
 
-   
     res.status(201).json({ sucesso: true, dados: produto });
   } catch (error) {
     console.error('Erro ao criar produto:', error.message);
@@ -41,7 +57,13 @@ const criarProduto = async (req, res) => {
   }
 };
 
-
+/**
+ * Atualiza os dados de um produto existente pelo ID.
+ * @param {import('express').Request} req - Contém req.params.id e no body os campos a atualizar
+ * @param {import('express').Response} res - Retorna o produto atualizado ou erro 404
+ * @returns {Promise<void>}
+ * @throws {Error} Se o ID for inválido ou os dados não passarem na validação
+ */
 const atualizarProduto = async (req, res) => {
   try {
     const { nome, descricao, preco, quantidade, categoria } = req.body;
@@ -63,7 +85,13 @@ const atualizarProduto = async (req, res) => {
   }
 };
 
-
+/**
+ * Exclui um produto do banco de dados pelo ID.
+ * @param {import('express').Request} req - Contém req.params.id com o ID do produto
+ * @param {import('express').Response} res - Retorna mensagem de sucesso ou erro 404
+ * @returns {Promise<void>}
+ * @throws {Error} Se o ID for inválido ou ocorrer erro no banco
+ */
 const excluirProduto = async (req, res) => {
   try {
     const produto = await Produto.findByIdAndDelete(req.params.id);
