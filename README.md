@@ -1,113 +1,86 @@
-#  Gestão de Produtos — MVC + MongoDB + HTML Puro
+#  API Catálogo de Produtos
 
-Aplicação web com **Node.js**, **Express** e **MongoDB (Mongoose)**, seguindo o padrão **MVC**.  
-O front-end é feito em **HTML puro + JavaScript (fetch API)** — sem template engine.
+![Node.js](https://img.shields.io/badge/Node.js-18.x-green)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-brightgreen)
 
----
+API REST desenvolvida em Node.js para gerenciamento de um catálogo de produtos.
+Permite criar, listar, buscar, atualizar e excluir produtos de forma simples e organizada.
+Projeto desenvolvido seguindo o padrão MVC com boas práticas de documentação.
 
-##  Estrutura do Projeto
+## Demonstração
 
+
+### Tela inicial
+
+ ![Tela inicial](./img/print%20mvc.png)
+
+ na tela inicial você consegue ir para os produtos criados, ela também te direciona para a tela de criar um novo produto, quantos produtos criados e o valor médio dos produtos.
+
+ ### Lista de produtos
+
+  ![Lista de produtos](./img/print%20lista%20de%20produtos.png)
+
+Na lista de produtos você consegue ver quais produtos estão listados.
+
+### Adicionar produtos
+
+![adicionar produtos](./img/print%20adicionar%20produto.png)
+
+Nesta tela você consegue criar novos produtos.
+
+
+##  Stack Tecnológica
+
+- **Node.js** — Ambiente de execução JavaScript
+- **Express** — Framework para criação de rotas e servidor
+- **MongoDB** — Banco de dados NoSQL
+- **Mongoose** — ODM para modelagem de dados
+- **Swagger** — Documentação interativa da API
+
+
+
+##  Como Instalar e Rodar
+
+**1. Clone o repositório:**
+```bash
+git clone https://github.com/seu-usuario/seu-repositorio.git
 ```
-projeto-mvc-produtos/
-├── config/
-│   └── database.js              # Conexão com o MongoDB
-├── controllers/
-│   └── produtoController.js     # Lógica CRUD (retorna JSON)
-├── middlewares/
-│   ├── logRequisicao.js         # Log de todas as requisições HTTP
-│   └── validarProduto.js        # Validação dos campos do produto
-├── models/
-│   └── Produto.js               # Schema Mongoose
-├── routes/
-│   └── produtoRoutes.js         # Endpoints REST /api/produtos
-├── public/                      # Front-end estático (servido pelo Express)
-│   ├── index.html               # Página inicial com estatísticas
-│   ├── css/
-│   │   └── style.css
-│   ├── js/
-│   │   ├── produtos.js          # Listagem e exclusão
-│   │   ├── novo.js              # Criação de produto
-│   │   ├── detalhes.js          # Visualização de produto
-│   │   └── editar.js            # Edição de produto
-│   └── pages/
-│       ├── produtos.html        # Listagem de produtos
-│       ├── novo.html            # Formulário de criação
-│       ├── detalhes.html        # Detalhes do produto
-│       └── editar.html          # Formulário de edição
-├── .env.example
-├── .gitignore
-├── package.json
-└── server.js                    # Ponto de entrada
+
+**2. Entre na pasta do projeto:**
+```bash
+cd projeto-mvc-63-1-main
 ```
 
----
-
-##  Como Executar
-
-### 1. Instalar dependências
+**3. Instale as dependências:**
 ```bash
 npm install
 ```
 
-### 2. Configurar o `.env`
+**4. Configure o arquivo `.env`:**
 ```bash
 cp .env.example .env
-# Edite o .env com sua string de conexão do MongoDB Atlas
 ```
 
-`.env`:
-```
-PORT=3000
-MONGODB_URI=mongodb+srv://USUARIO:SENHA@cluster0.xxxxx.mongodb.net/produtos_db
-NODE_ENV=development
-```
-
-### 3. Iniciar
+**5. Rode o projeto:**
 ```bash
-npm start       # produção
-npm run dev     # desenvolvimento (nodemon)
-```
+node server.js
+'''
 
-Acesse: **http://localhost:3000**
 
----
 
-##  Fluxo de uma Requisição
+##  Variáveis de Ambiente
 
-```
-Browser (fetch)
-     ↓
-server.js  →  logRequisicao.js (Middleware: log)
-     ↓
-produtoRoutes.js  →  validarProduto.js (Middleware: validação, se POST/PUT)
-     ↓
-produtoController.js  (Lógica de negócio)
-     ↓
-Produto.js (Model Mongoose)
-     ↓
-MongoDB Atlas
-     ↓
-JSON → JavaScript (fetch) → Atualiza o HTML
-```
+Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 
----
+env
+PORT=3000
+NODE_ENV=development
+MONGODB_URI=mongodb+srv://usuario:senha@cluster.mongodb.net/nome-do-banco
 
-##  Endpoints da API REST
 
-| Método | Rota                | Descrição                   | Status |
-|--------|---------------------|-----------------------------|--------|
-| GET    | /api/produtos       | Lista todos os produtos     | 200    |
-| GET    | /api/produtos/:id   | Busca produto por ID        | 200/404|
-| POST   | /api/produtos       | Cria novo produto           | 201    |
-| PUT    | /api/produtos/:id   | Atualiza produto            | 200/404|
-| DELETE | /api/produtos/:id   | Exclui produto              | 200/404|
 
----
+##  Documentação
 
-##  Segurança e Boas Práticas
+Após rodar o projeto, acesse a documentação interativa em:
 
-- `.env` protege as credenciais do banco (nunca sobe ao GitHub)
-- `.gitignore` exclui `node_modules/` e `.env`
-- `try/catch` em todas as funções assíncronas do Controller
-- Status codes corretos: 201, 200, 404, 422, 500
-- Dois middlewares: **log de requisições** e **validação de campos**
+http://localhost:3000/api-docs
